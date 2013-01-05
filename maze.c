@@ -70,7 +70,7 @@ void remove_maze_boundary(maze *m, int square_a, int square_b) {
 		square_a = square_b;
 		square_b = tmp;
 	}
-	if (square_b - square_a == 0) {
+	if (square_b - square_a == 1) {
 		m->squares[square_b].borderE = 0;
 	} else {
 		m->squares[square_b].borderN = 0;
@@ -85,52 +85,40 @@ void create_passages(maze *m) {
 	g_array_append_val(explored, i);
 	enum square_status {EXPLORED=0, UNEXPLORED=1};
 	char square_statuses[m->width * m->height];
-	printf("sizeof(square_statuses) = %d\n", sizeof(square_statuses));
-	printf("UNEXPLORED= %d\n", UNEXPLORED);
-	printf("sizeof(square_status) = %zd\n", sizeof(enum square_status));
 	memset(square_statuses, (int)UNEXPLORED, sizeof(square_statuses));
 	square_statuses[0] = EXPLORED;
-	for(int i =0; i<21; i++) {
-		printf("square_statuses[%2i] = %i\n", i, square_statuses[i]);
-	}
 
 	while( explored->len ) {
 		int explored_index = g_random_int_range(0, explored->len);
 		int explored_cell_index = g_array_index(explored, int, explored_index);
 		int y = explored_cell_index/m->width;
 		int x = explored_cell_index - y*m->width;
-		printf("(x, y): (%2i, %2i)\n", x, y);
 		GArray *bordering_squares = g_array_sized_new(FALSE, FALSE, sizeof(int), 4);
 		int bordering_square;
 		if (y>0) {
 			bordering_square = explored_cell_index - m->width;
-			printf("bordering_square: %2i, square_statuses[%2i] = %i\n", bordering_square, bordering_square, square_statuses[bordering_square]);
 			if (square_statuses[bordering_square] == UNEXPLORED) {
 				g_array_append_val(bordering_squares, bordering_square);
 			}
 		}
 		if (x< m->width-1) {
 			bordering_square = explored_cell_index +1;
-			printf("bordering_square: %2i, square_statuses[%2i] = %i\n", bordering_square, bordering_square, square_statuses[bordering_square]);
 			if (square_statuses[bordering_square] == UNEXPLORED) {
 				g_array_append_val(bordering_squares, bordering_square);
 			}
 		}
 		if (y< m->height-1) {
 			bordering_square = explored_cell_index + m->width;
-			printf("bordering_square: %2i, square_statuses[%2i] = %i\n", bordering_square, bordering_square, square_statuses[bordering_square]);
 			if (square_statuses[bordering_square] == UNEXPLORED) {
 				g_array_append_val(bordering_squares, bordering_square);
 			}
 		}
 		if (x > 0) {
 			bordering_square = explored_cell_index -1;
-			printf("bordering_square: %2i, square_statuses[%2i] = %i\n", bordering_square, bordering_square, square_statuses[bordering_square]);
 			if (square_statuses[bordering_square] == UNEXPLORED) {
 				g_array_append_val(bordering_squares, bordering_square);
 			}
 		}
-		printf("bordering_squares->len: %i\n", bordering_squares->len);
 		if (bordering_squares->len==0) {
 			g_array_remove_index_fast(explored, explored_index);
 		} else {
