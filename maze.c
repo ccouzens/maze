@@ -36,30 +36,30 @@ void print_maze(maze *maze) {
 	for (int y=0; y < maze->height; y++) {
 		// top border
 		for (int x=0; x < maze->width; x++) {
-			printf("*");
+			printf("█");
 			if (maze->squares[maze->width*y +x].borderN) {
-				printf("*");
+				printf("█");
 			} else {
 				printf(" ");
 			}
 		}
-		printf("*\n");
+		printf("█\n");
 		// East border and blank for square
 		for (int x=0; x < maze->width; x++) {
 			if (maze->squares[maze->width*y +x].borderE) {
-				printf("*");
+				printf("█");
 			} else {
 				printf(" ");
 			}
 			printf(" ");
 		}
-		printf("*\n");
+		printf("█\n");
 	}
 	// Very bottom border
 	for (int x=0; x < maze->width-1; x++) {
-		printf("**");
+		printf("██");
 	}
-	printf("* *\n");
+	printf("█ █\n");
 }
 
 int main(int argc, char **argv) {
