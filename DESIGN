@@ -10,16 +10,14 @@ Initial plan:
  * stores if top and left border are filled in
  * should squares know their location?
 * Maze generation algorithm:
- * 3 lists- (discarded isn't really a list)
-  * Discarded - square is explored as are the 4 neighbours
-  * Explored - square is explored.
-               If it turns out that no neighbour remains unexplored this square gets discarded.
-  * Unexplored - square is not yet explored.
- * Put top left in explored and all other squares in unexplored.
- * while there are unexplored squares:
+ * 1 list
+  * Explored - square has been explored.
+               If it turns out that no neighbour remains unexplored this square gets removed.
+ * 1 array of square status (EXPLORED or UNEXPLORED)
+ * Put top left in explored and mark all other squares as unexplored.
+ * while there are squares in the explored list:
   * Randomly pick an explored square
   * Pick a direction at random (NESW) and as long as that square is unexplored, explore it.
-  * Keep randomly picking directions and moving on until an explored square or board edge is hit.
 
 * ******
 *      *
