@@ -136,7 +136,11 @@ void create_passages(maze *m) {
 }
 
 int main(int argc, char **argv) {
-	maze *m = new_maze(20, 7);
+	int width = (argc < 3) ? 0 : atoi(argv[1]);
+	int height = (argc < 3) ? 0 : atoi(argv[2]);
+	if (width < 2) width = 10;
+	if (height < 2) height = 10;
+	maze *m = new_maze(width, height);
 	create_passages(m);
 	print_maze(m);
 	free_maze(m);
