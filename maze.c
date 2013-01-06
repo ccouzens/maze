@@ -87,6 +87,7 @@ void create_passages(maze *m) {
 	char square_statuses[m->width * m->height];
 	memset(square_statuses, (int)UNEXPLORED, sizeof(square_statuses));
 	square_statuses[0] = EXPLORED;
+	m->squares[0].borderN = 0;
 
 	while( explored->len ) {
 		int explored_index = g_random_int_range(0, explored->len);
