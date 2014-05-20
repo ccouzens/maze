@@ -21,7 +21,7 @@ typedef struct maze {
 	square* squares;
 } maze;
 
-maze *new_maze(width, height) {
+maze *new_maze(int width, int height) {
 	maze* maze = malloc(sizeof(maze));
 	maze->width = width;
 	maze->height = height;
